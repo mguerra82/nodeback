@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { 
-    getEmployees, postEmployees, putEmployees, deleteEmployeesId, getEmployeesId
+    getEmployees, postEmployees, patchEmployees, deleteEmployeesId, getEmployeesId
 
 } from '../controllers/employees.controllers.js'
 
@@ -12,7 +12,7 @@ router.get('/employees/:id', getEmployeesId )
 
 router.post('/employees', postEmployees)
 
-router.patch('/employees/:id', putEmployees)
+router.patch('/employees/:id', patchEmployees)
 
 router.delete('/employees/:id', deleteEmployeesId)
 
