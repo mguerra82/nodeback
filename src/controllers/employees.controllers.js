@@ -1,3 +1,5 @@
+import { parse } from "dotenv"
+import { response } from "express"
 import { pool } from "../db/db.js"
 
 export const getEmployees =async (req, res)=> {
@@ -12,6 +14,22 @@ export const getEmployees =async (req, res)=> {
    }
 }
 
+export const getPilotos =async (req, res)=> {
+    try {
+    
+    // throw new Error('DB Error')
+    //const [rows] = await pool.query('select * from employee')
+    // let sql = 'call sp_listarPiloto(@p_codigo, @p_mensaje)';
+    let sql = 'call sp_listarPiloto(@p_codigo, @p_mensaje)';
+    const [rows] = await pool.query(`call sp_listarPiloto(@p_codigo, @p_mensaje)`)
+    console.log('RES:....')
+    res.json(rows)
+ 
+    } catch (error) {
+     return res.status(500).json({ mensje: 'Existe un error en el servidor', error: error})
+    }
+ }
+ 
 
 export const getEmployeesId = async(req, res)=>{
     try {
@@ -23,7 +41,7 @@ export const getEmployeesId = async(req, res)=>{
         })
 
         console.log('PARAMETROS:... ',req.params)
-    res.json(rows[0])
+        res.json(rows[0])
 
     } catch (error) {
         return res.status(500).json({ mensaje: 'Existe un error en el servidor'})
